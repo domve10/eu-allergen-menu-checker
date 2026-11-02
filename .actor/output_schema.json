@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "EU Allergen Checker output",
+  "description": "Allergen analysis results: one item per dish in the run's default dataset.",
+  "properties": {
+    "overview": {
+      "type": "string",
+      "title": "Allergen analysis",
+      "description": "One item per analysed dish in the default dataset (opens the Overview view; Details view and full JSON available).",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?view=overview"
+    }
+  }
+}

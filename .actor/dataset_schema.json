@@ -1,0 +1,211 @@
+{
+  "actorSpecification": 1,
+  "title": "Allergen analysis per dish",
+  "fields": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "dishName": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Dish name (null for error items).",
+        "example": "Spaghetti carbonara"
+      },
+      "source": {
+        "type": "string",
+        "description": "Where the dish came from: 'dishes', 'menuText', or the recipe URL.",
+        "example": "dishes"
+      },
+      "ingredientsAnalyzed": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Ingredient strings that were analysed.",
+        "example": [
+          "spaghetti",
+          "guanciale",
+          "egg yolks",
+          "Pecorino Romano",
+          "black pepper"
+        ]
+      },
+      "allergens": {
+        "type": "array",
+        "description": "Detected EU allergens (Annex II numbering) with matched terms and confidence ('contains' or 'check').",
+        "items": {
+          "type": "object",
+          "properties": {
+            "number": {
+              "type": "integer"
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "matchedTerms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "confidence": {
+              "type": "string"
+            }
+          }
+        },
+        "example": [
+          {
+            "number": 1,
+            "id": "gluten",
+            "name": "Cereals containing gluten",
+            "matchedTerms": [
+              "spaghetti"
+            ],
+            "confidence": "contains"
+          }
+        ]
+      },
+      "allergenCount": {
+        "type": "integer",
+        "description": "Number of allergens with confidence 'contains'.",
+        "example": 3
+      },
+      "containsAllergens": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Short names of allergens the dish contains.",
+        "example": [
+          "Gluten",
+          "Eggs",
+          "Milk"
+        ]
+      },
+      "checkAllergens": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Short names of allergens to verify (possible, depends on product/recipe).",
+        "example": []
+      },
+      "euAllergenLine": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Ready-to-print allergen line for menus.",
+        "example": "Contains: Gluten, Eggs, Milk"
+      },
+      "checks": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Notes explaining what to verify with suppliers/labels."
+      },
+      "disclaimer": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Legal disclaimer (null for error items)."
+      },
+      "error": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Only present on error items (e.g. recipe page without schema.org Recipe)."
+      }
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "dishName",
+          "euAllergenLine",
+          "allergenCount",
+          "checkAllergens",
+          "source",
+          "error"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "dishName": {
+            "label": "Dish",
+            "format": "text"
+          },
+          "euAllergenLine": {
+            "label": "EU allergen line",
+            "format": "text"
+          },
+          "allergenCount": {
+            "label": "# allergens (contains)",
+            "format": "number"
+          },
+          "checkAllergens": {
+            "label": "To verify",
+            "format": "array"
+          },
+          "source": {
+            "label": "Source",
+            "format": "text"
+          },
+          "error": {
+            "label": "Error",
+            "format": "text"
+          }
+        }
+      }
+    },
+    "details": {
+      "title": "Details",
+      "transformation": {
+        "fields": [
+          "dishName",
+          "ingredientsAnalyzed",
+          "allergens",
+          "checks",
+          "disclaimer"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "dishName": {
+            "label": "Dish",
+            "format": "text"
+          },
+          "ingredientsAnalyzed": {
+            "label": "Ingredients analysed",
+            "format": "array"
+          },
+          "allergens": {
+            "label": "Allergens",
+            "format": "object"
+          },
+          "checks": {
+            "label": "Checks",
+            "format": "array"
+          },
+          "disclaimer": {
+            "label": "Disclaimer",
+            "format": "text"
+          }
+        }
+      }
+    }
+  },
+  "description": "One item per analysed dish (from dishes, menuText or recipe URLs). Recipe URLs that could not be parsed produce an informational error item (not charged)."
+}

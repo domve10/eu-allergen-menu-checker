@@ -9,47 +9,9 @@
     "templateId": "python-start"
   },
   "input": "./input_schema.json",
+  "output": "./output_schema.json",
   "dockerfile": "../Dockerfile",
   "storages": {
-    "dataset": {
-      "actorSpecification": 1,
-      "title": "Allergen analysis per dish",
-      "fields": {},
-      "views": {
-        "overview": {
-          "title": "Overview",
-          "transformation": {
-            "fields": ["dishName", "euAllergenLine", "allergenCount", "checkAllergens", "source", "error"]
-          },
-          "display": {
-            "component": "table",
-            "properties": {
-              "dishName": { "label": "Dish", "format": "text" },
-              "euAllergenLine": { "label": "EU allergen line", "format": "text" },
-              "allergenCount": { "label": "# allergens (contains)", "format": "number" },
-              "checkAllergens": { "label": "To verify", "format": "array" },
-              "source": { "label": "Source", "format": "text" },
-              "error": { "label": "Error", "format": "text" }
-            }
-          }
-        },
-        "details": {
-          "title": "Details",
-          "transformation": {
-            "fields": ["dishName", "ingredientsAnalyzed", "allergens", "checks", "disclaimer"]
-          },
-          "display": {
-            "component": "table",
-            "properties": {
-              "dishName": { "label": "Dish", "format": "text" },
-              "ingredientsAnalyzed": { "label": "Ingredients analysed", "format": "array" },
-              "allergens": { "label": "Allergens", "format": "object" },
-              "checks": { "label": "Checks", "format": "array" },
-              "disclaimer": { "label": "Disclaimer", "format": "text" }
-            }
-          }
-        }
-      }
-    }
+    "dataset": "./dataset_schema.json"
   }
 }
