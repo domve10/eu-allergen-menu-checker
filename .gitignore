@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+storage/
+apify_storage/
+.env
+.idea/
+.vscode/
+.DS_Store
+local-input.json

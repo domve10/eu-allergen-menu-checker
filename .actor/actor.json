@@ -1,0 +1,55 @@
+{
+  "actorSpecification": 1,
+  "name": "eu-allergen-menu-checker",
+  "title": "EU Allergen Checker for Menus & Recipes",
+  "description": "Detects the 14 EU allergens (Regulation (EU) No 1169/2011, Annex II) in dishes, menu text and recipe URLs. Multilingual (EN, IT, FR, NL, DE, ES), rule-based, built by a professional chef.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "meta": {
+    "templateId": "python-start"
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "Allergen analysis per dish",
+      "fields": {},
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": {
+            "fields": ["dishName", "euAllergenLine", "allergenCount", "checkAllergens", "source", "error"]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "dishName": { "label": "Dish", "format": "text" },
+              "euAllergenLine": { "label": "EU allergen line", "format": "text" },
+              "allergenCount": { "label": "# allergens (contains)", "format": "number" },
+              "checkAllergens": { "label": "To verify", "format": "array" },
+              "source": { "label": "Source", "format": "text" },
+              "error": { "label": "Error", "format": "text" }
+            }
+          }
+        },
+        "details": {
+          "title": "Details",
+          "transformation": {
+            "fields": ["dishName", "ingredientsAnalyzed", "allergens", "checks", "disclaimer"]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "dishName": { "label": "Dish", "format": "text" },
+              "ingredientsAnalyzed": { "label": "Ingredients analysed", "format": "array" },
+              "allergens": { "label": "Allergens", "format": "object" },
+              "checks": { "label": "Checks", "format": "array" },
+              "disclaimer": { "label": "Disclaimer", "format": "text" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

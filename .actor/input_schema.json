@@ -1,0 +1,39 @@
+{
+  "title": "EU Allergen Checker input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "dishes": {
+      "title": "Dishes",
+      "type": "array",
+      "description": "List of dishes as objects: {\"name\": \"...\", \"ingredients\": \"comma-separated text\" or [\"array\", \"of\", \"ingredients\"]}.",
+      "editor": "json",
+      "prefill": [
+        { "name": "Spaghetti carbonara", "ingredients": "spaghetti, guanciale, egg yolks, Pecorino Romano, black pepper" },
+        { "name": "Pesto alla genovese", "ingredients": ["trofie pasta", "basil", "pine nuts", "Parmigiano Reggiano", "Pecorino", "garlic", "extra virgin olive oil"] },
+        { "name": "Moules-frites", "ingredients": "mussels, white wine, shallots, celery, butter, parsley, fries, mayonnaise" },
+        { "name": "Tiramisu", "ingredients": "savoiardi, mascarpone, eggs, sugar, espresso, Marsala, cocoa powder" }
+      ]
+    },
+    "menuText": {
+      "title": "Menu text",
+      "type": "string",
+      "description": "Free menu text, one dish per line. Formats: 'Dish name: ingredient, ingredient' or 'Dish name - ingredients' or 'Dish name (ingredients)'. Prices at the end of a line are ignored; lines starting with # are skipped.",
+      "editor": "textarea",
+      "prefill": "Tagliatelle al ragù: tagliatelle all'uovo, beef, pork, soffritto, tomato, red wine, milk - 16 €\nSalade niçoise - thon, oeufs, anchois, olives, haricots verts, vinaigrette à la moutarde\nGarnalenkroket: garnalen, boter, bloem, melk, paneermeel"
+    },
+    "recipeUrls": {
+      "title": "Recipe URLs",
+      "type": "array",
+      "description": "Recipe page URLs. Each page is fetched and its schema.org Recipe JSON-LD (incl. @graph) is parsed (name + recipeIngredient). Pages without a Recipe produce an error item (not charged).",
+      "editor": "requestListSources"
+    },
+    "languages": {
+      "title": "Languages (optional hint)",
+      "type": "array",
+      "description": "Restrict the keyword dictionaries to these languages (English is always included). Leave empty to use all: en, it, fr, nl, de, es.",
+      "editor": "stringList"
+    }
+  },
+  "required": []
+}
